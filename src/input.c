@@ -1,7 +1,5 @@
 #include "input.h"
 
-#include <stdio.h>
-
 int key_w;
 int key_s;
 int key_a;

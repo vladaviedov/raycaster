@@ -1,0 +1,10 @@
+[meta]
+name,test
+size,10,10
+[player]
+spawn,5,5
+[walls]
+hline,0,0,10
+hline,0,10,10
+vline,0,0,10
+vline 10,0,10
