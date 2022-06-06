@@ -4,6 +4,7 @@
 
 #include "input.h"
 #include "player.h"
+#include "map/loader.h"
 
 #define WIDTH 512
 #define LENGTH 512
@@ -31,6 +32,7 @@ int main(int argc, char **argv) {
 void init(void) {
 	glClearColor(0.3, 0.3, 0.3, 0);
 	gluOrtho2D(0, WIDTH, LENGTH, 0);
+	load_csv("../maps/test.csv");
 }
 
 void loop(void) {
