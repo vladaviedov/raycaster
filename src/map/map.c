@@ -73,6 +73,20 @@ int map_set_cell(int x, int y, mp_cell_val val) {
 	return 0;
 }
 
+mp_cell_val map_get_cell(int x, int y) {
+	if (map.data == NULL) {
+		return OOB;
+	}
+	if (x < 0 || y < 0) {
+		return OOB;
+	}
+	if (x >= map.xdim || y >= map.ydim) {
+		return OOB;
+	}
+
+	return map.data[x][y];
+}
+
 void map_draw(void) {
 	for (int x = 0; x < map.xdim; x++) {
 		int xs = scale_up(x);
@@ -84,6 +98,9 @@ void map_draw(void) {
 					break;
 				case WALL:
 					glColor3d(0.0, 0.0, 0.0);
+					break;
+				case OOB:
+					fatal(1, "Out of bounds cell in map");
 					break;
 			}
 			glBegin(GL_QUADS);
