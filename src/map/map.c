@@ -3,11 +3,9 @@
 #include <stdlib.h>
 #include <GL/gl.h>
 
+#include "../config.h"
 #include "../util.h"
 #include "../player.h"
-
-#define SCALE 32
-#define upscale(x) (x * SCALE)
 
 typedef struct {
 	mp_cell_val **data;
@@ -90,9 +88,9 @@ void map_draw(void) {
 			}
 			glBegin(GL_QUADS);
 			glVertex2i(xs + 1, ys + 1);
-			glVertex2i(xs + 1, ys + SCALE - 1);
-			glVertex2i(xs + SCALE - 1, ys + SCALE - 1);
-			glVertex2i(xs + SCALE - 1, ys + 1);
+			glVertex2i(xs + 1, ys + MAP_SCALE - 1);
+			glVertex2i(xs + MAP_SCALE - 1, ys + MAP_SCALE - 1);
+			glVertex2i(xs + MAP_SCALE - 1, ys + 1);
 			glEnd();
 		}
 	}
