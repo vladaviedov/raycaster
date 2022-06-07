@@ -3,12 +3,12 @@
 #include <math.h>
 #include <GL/gl.h>
 
+#include "util.h"
 #include "input.h"
 
 #define PLAYER_SIZE 8
 #define TRACER_WIDTH 3
 #define TRACER_LENGTH_SCALE 5
-#define PI 3.1415
 
 static double px;
 static double py;
@@ -66,10 +66,10 @@ void plr_update(void) {
 
 	if (key_l) {
 		pth += pw;
-		if (pth > 2 * PI) pth = 0;
+		if (pth > TAU) pth = 0;
 	}
 	if (key_k) {
 		pth -= pw;
-		if (pth < 0) pth = 2 * PI;
+		if (pth < 0) pth = TAU;
 	}
 }
