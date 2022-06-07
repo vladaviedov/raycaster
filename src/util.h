@@ -3,6 +3,10 @@
 
 #include <stddef.h>
 
+#include "config.h"
+
+#define upscale(x) (x * MAP_SCALE)
+
 void fatal(int code, char *format, ...);
 void *ualloc(size_t bytes);
 

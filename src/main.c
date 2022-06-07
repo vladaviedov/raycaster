@@ -2,14 +2,11 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 
+#include "config.h"
 #include "input.h"
 #include "player.h"
 #include "map/map.h"
 #include "map/loader.h"
-
-#define WIDTH 512
-#define LENGTH 512
-#define WIN_NAME "rc"
 
 void init(void);
 void loop(void);
