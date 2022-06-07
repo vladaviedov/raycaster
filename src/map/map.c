@@ -40,7 +40,7 @@ int map_set_spawn(int x, int y) {
 
 	map.spawnx = x;
 	map.spawny = y;
-	plr_moveto(upscale(x), upscale(y));
+	plr_moveto(scale_up(x), scale_up(y));
 
 	return 0;
 }
@@ -75,9 +75,9 @@ int map_set_cell(int x, int y, mp_cell_val val) {
 
 void map_draw(void) {
 	for (int x = 0; x < map.xdim; x++) {
-		int xs = upscale(x);
+		int xs = scale_up(x);
 		for (int y = 0; y < map.ydim; y++) {
-			int ys = upscale(y);
+			int ys = scale_up(y);
 			switch (map.data[x][y]) {
 				case VOID:
 					glColor3d(0.3, 0.5, 0.3);
