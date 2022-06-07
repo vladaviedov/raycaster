@@ -5,6 +5,8 @@ extern int key_w;
 extern int key_s;
 extern int key_d;
 extern int key_a;
+extern int key_k;
+extern int key_l;
 
 void i_keydown(unsigned char key, int x, int y);
 void i_keyup(unsigned char key, int x, int y);

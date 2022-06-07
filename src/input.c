@@ -4,6 +4,8 @@ int key_w;
 int key_s;
 int key_a;
 int key_d;
+int key_k;
+int key_l;
 
 void chg_key(unsigned char key, int state);
 
@@ -28,6 +30,12 @@ void chg_key(unsigned char key, int state) {
 			break;
 		case 'd':
 			key_d = state;
+			break;
+		case 'k':
+			key_k = state;
+			break;
+		case 'l':
+			key_l = state;
 			break;
 	}
 }

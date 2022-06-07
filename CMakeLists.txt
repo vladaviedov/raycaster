@@ -11,4 +11,4 @@ find_package(GLUT REQUIRED)
 
 file(GLOB SOURCES src/*.c src/map/*.c)
 add_executable(${PROJ_NAME} ${SOURCES})
-target_link_libraries(${PROJ_NAME} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
+target_link_libraries(${PROJ_NAME} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} m)
