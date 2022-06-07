@@ -7,11 +7,11 @@
 #define SEARCH_BUF 32
 #define DATA_BUF 32
 
-#define META "[meta]"
+#define META "[meta]\n"
 #define META_NAME "name"
 #define META_SIZE "size"
 
-#define PLAYER "[player]"
+#define PLAYER "[player]\n"
 #define PLAYER_SPAWN "spawn"
 
 int find_header(FILE *fp, const char *header);
@@ -33,7 +33,7 @@ int csv_load_meta(FILE *fp, csv_meta *buf) {
 				return -1;
 			}
 
-			buf->name = value;
+			buf->name = strdup(value);
 		}
 		if (strcmp(param, META_SIZE) == 0) {
 			value = strtok(NULL, ",");

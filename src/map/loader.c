@@ -16,11 +16,13 @@ int load_csv(char *file) {
 	if (csv_load_meta(csv, &meta) < 0) {
 		return -1;
 	}
+
+	glutSetWindowTitle(meta.name);
+	free(meta.name);
+
 	if (csv_load_player(csv, &player) < 0) {
 		return -1;
 	}
-
-	glutSetWindowTitle(meta.name);
 
 	if (map_new(meta.sizex, meta.sizey, player.spawnx, player.spawny) < 0) {
 		return -1;
