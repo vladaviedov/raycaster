@@ -78,7 +78,7 @@ void map_draw(void) {
 			int ys = y * SCALE;
 			switch (map.data[x][y]) {
 				case VOID:
-					glColor3d(1.0, 1.0, 1.0);
+					glColor3d(0.3, 0.5, 0.3);
 					break;
 				case WALL:
 					glColor3d(0.0, 0.0, 0.0);
