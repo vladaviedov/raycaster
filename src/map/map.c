@@ -4,8 +4,10 @@
 #include <GL/gl.h>
 
 #include "../util.h"
+#include "../player.h"
 
 #define SCALE 32
+#define upscale(x) (x * SCALE)
 
 typedef struct {
 	mp_cell_val **data;
@@ -40,6 +42,8 @@ int map_set_spawn(int x, int y) {
 
 	map.spawnx = x;
 	map.spawny = y;
+	plr_moveto(upscale(x), upscale(y));
+
 	return 0;
 }
 
@@ -73,9 +77,9 @@ int map_set_cell(int x, int y, mp_cell_val val) {
 
 void map_draw(void) {
 	for (int x = 0; x < map.xdim; x++) {
-		int xs = x * SCALE;
+		int xs = upscale(x);
 		for (int y = 0; y < map.ydim; y++) {
-			int ys = y * SCALE;
+			int ys = upscale(y);
 			switch (map.data[x][y]) {
 				case VOID:
 					glColor3d(0.3, 0.5, 0.3);
