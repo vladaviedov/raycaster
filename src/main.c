@@ -4,6 +4,7 @@
 
 #include "input.h"
 #include "player.h"
+#include "map/map.h"
 #include "map/loader.h"
 
 #define WIDTH 512
@@ -37,6 +38,7 @@ void init(void) {
 
 void loop(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
+	map_draw();
 	plr_update();
 	plr_draw();
 	glutSwapBuffers();

@@ -14,6 +14,10 @@
 #define PLAYER "[player]\n"
 #define PLAYER_SPAWN "spawn"
 
+#define WALLS "[walls]\n"
+#define WALLS_HWALL "hwall"
+#define WALLS_VWALL "vwall"
+
 int find_header(FILE *fp, const char *header);
 
 int csv_load_meta(FILE *fp, csv_meta *buf) {
@@ -83,6 +87,40 @@ int csv_load_player(FILE *fp, csv_player *buf) {
 		} 
 	}
 
+	return 0;
+}
+
+int csv_goto_walls(FILE *fp) {
+	if (find_header(fp, WALLS) < 0) {
+		return -1;
+	}
+
+	return 0;
+}
+
+int csv_next_wall(FILE *fp, csv_wall *buf) {
+	memset(buf, 0, sizeof(csv_wall));
+
+	char data[DATA_BUF];
+	if (fgets(data, DATA_BUF, fp) == NULL) {
+		return -1;
+	}
+
+	char *param = strtok(data, ",");
+	if (strcmp(param, WALLS_HWALL) == 0) {
+		buf->type = HWALL;
+	} else if (strcmp(param, WALLS_VWALL) == 0) {
+		buf->type = VWALL;
+	} else {
+		return -1;
+	}
+
+	char *value = strtok(NULL, ",");
+	buf->startx = atoi(value);
+	value = strtok(NULL, ",");
+	buf->starty = atoi(value);
+	value = strtok(NULL, ",");
+	buf->length = atoi(value);
 	return 0;
 }
 
