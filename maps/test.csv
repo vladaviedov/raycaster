@@ -1,10 +1,11 @@
 [meta]
 name,test
-size,10,10
+size,15,15
 [player]
 spawn,5,5
 [walls]
-hline,0,0,10
-hline,0,10,10
-vline,0,0,10
-vline 10,0,10
+hwall,0,0,15
+hwall,0,14,15
+vwall,0,0,15
+vwall,14,0,15
+hwall,5,7,5

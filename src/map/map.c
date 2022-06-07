@@ -1,8 +1,11 @@
 #include "map.h"
 
 #include <stdlib.h>
+#include <GL/gl.h>
 
 #include "../util.h"
+
+#define SCALE 32
 
 typedef struct {
 	mp_cell_val **data;
@@ -14,7 +17,7 @@ typedef struct {
 
 static map2d map = { NULL, 0, 0, 0, 0 };
 
-int map_new(int xdim, int ydim, int spawnx, int spawny) {
+int map_new(int xdim, int ydim) {
 	if (xdim < 0 || ydim < 0) {
 		return -1;
 	}
@@ -24,9 +27,19 @@ int map_new(int xdim, int ydim, int spawnx, int spawny) {
 		map.data[i] = ualloc(sizeof(mp_cell_val) * ydim);
 	}
 
-	map.spawnx = spawnx;
-	map.spawny = spawny;
+	map.ydim = ydim;
+	map.xdim = xdim;
 
+	return 0;
+}
+
+int map_set_spawn(int x, int y) {
+	if (map.data == NULL) {
+		return -1;
+	}
+
+	map.spawnx = x;
+	map.spawny = y;
 	return 0;
 }
 
@@ -59,5 +72,24 @@ int map_set_cell(int x, int y, mp_cell_val val) {
 }
 
 void map_draw(void) {
-
+	for (int x = 0; x < map.xdim; x++) {
+		int xs = x * SCALE;
+		for (int y = 0; y < map.ydim; y++) {
+			int ys = y * SCALE;
+			switch (map.data[x][y]) {
+				case VOID:
+					glColor3d(1.0, 1.0, 1.0);
+					break;
+				case WALL:
+					glColor3d(0.0, 0.0, 0.0);
+					break;
+			}
+			glBegin(GL_QUADS);
+			glVertex2i(xs + 1, ys + 1);
+			glVertex2i(xs + 1, ys + SCALE - 1);
+			glVertex2i(xs + SCALE - 1, ys + SCALE - 1);
+			glVertex2i(xs + SCALE - 1, ys + 1);
+			glEnd();
+		}
+	}
 }
