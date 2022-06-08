@@ -6,7 +6,7 @@
 #include <math.h>
 #include <GL/gl.h>
 
-#define RENDER_DISTANCE 10
+#define RENDER_DISTANCE 16
 #define RAY_WIDTH 3
 
 double cast_horz(double x, double y, double th);
