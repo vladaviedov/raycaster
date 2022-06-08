@@ -112,3 +112,10 @@ void map_draw(void) {
 		}
 	}
 }
+
+int map_2d_end(void) {
+	if (map.data == NULL) {
+		return -1;
+	}
+	return scale_up(map.xdim);
+}

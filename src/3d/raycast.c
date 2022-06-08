@@ -13,7 +13,7 @@ double cast_horz(double x, double y, double th);
 double cast_vert(double x, double y, double th);
 void draw_ray(double xi, double yi, double xf, double yf);
 
-double cast_ray(double x, double y, double th) {
+double cast_ray(double x, double y, double th, ray_type *type) {
 	double horz_dist = HUGE_VAL;
 	double vert_dist = HUGE_VAL;
 
@@ -28,6 +28,9 @@ double cast_ray(double x, double y, double th) {
 	double dist = (horz_dist > vert_dist)
 		? vert_dist
 		: horz_dist;
+	*type = (horz_dist > vert_dist)
+		? VERT
+		: HORZ;
 
 	draw_ray(x, y, x + dist * cos(th), y + dist * sin(th));
 	return dist;
