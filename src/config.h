@@ -7,4 +7,7 @@
 #define LENGTH 1024
 #define WIN_NAME "rc"
 
+#define FOV 60.0
+#define RAYS 180
+
 #endif // RC_CONFIG_H
