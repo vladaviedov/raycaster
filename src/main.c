@@ -1,3 +1,4 @@
+#include <GL/freeglut_std.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
@@ -17,11 +18,14 @@ int main(int argc, char **argv) {
 	glutInitWindowSize(WIDTH, LENGTH);
 	glutCreateWindow(WIN_NAME);
 	glutIgnoreKeyRepeat(1);
+	glutSetCursor(GLUT_CURSOR_NONE);
 	init();
 
 	glutDisplayFunc(&loop);
 	glutKeyboardFunc(&i_keydown);
 	glutKeyboardUpFunc(&i_keyup);
+	glutPassiveMotionFunc(&i_mouse);
+	glutMotionFunc(&i_mouse);
 	glutMainLoop();
 
 	return 0;

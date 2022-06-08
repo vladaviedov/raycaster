@@ -65,6 +65,10 @@ void plr_update(void) {
 		px -= dy;
 	}
 
+	if (mouse_x) {
+		pth += mouse_x * MOUSE_SENS;
+	}
+
 	if (key_l) {
 		pth += pw;
 		if (pth >= TAU) pth = 0;
