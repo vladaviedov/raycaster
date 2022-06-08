@@ -8,10 +8,6 @@
 #include "../map/map.h"
 #include "raycast.h"
 
-#define FOV 60.0
-#define RAYS 90
-
-#include <stdio.h>
 void render_3d(double px, double py, double pth) {
 	double start_th = pth - (FOV / 2.0) * DEG;
 	for (int i = 0; i < RAYS; i++) {
@@ -30,8 +26,10 @@ void render_3d(double px, double py, double pth) {
 		if (rt == HORZ) glColor3d(0.7, 0, 0);
 		else glColor3d(0.9, 0, 0);
 		glLineWidth(width);
-		glBegin(GL_LINES);
+		glBegin(GL_QUADS);
 		glVertex2d(offset + width * i, LENGTH / 2.0 - height / 2.0);
+		glVertex2d(offset + width * (i + 1), LENGTH / 2.0 - height / 2.0);
+		glVertex2d(offset + width * (i + 1), LENGTH / 2.0 + height / 2.0);
 		glVertex2d(offset + width * i, LENGTH / 2.0 + height / 2.0);
 		glEnd();
 	}
