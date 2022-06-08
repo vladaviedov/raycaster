@@ -10,4 +10,6 @@
 #define FOV 60.0
 #define RAYS 180
 
+#define MOUSE_SENS 2
+
 #endif // RC_CONFIG_H
