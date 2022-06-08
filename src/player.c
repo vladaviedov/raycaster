@@ -7,13 +7,13 @@
 #include "input.h"
 #include "3d/raycast.h"
 
-#define PLAYER_SIZE 8
-#define TRACER_WIDTH 3
-#define TRACER_LENGTH_SCALE 4
+#define PLAYER_SIZE 16
+#define TRACER_WIDTH 5
+#define TRACER_LENGTH_SCALE 8
 
 static double px;
 static double py;
-static double pth;
+static double pth = 0.0;
 static double pv = 5.0;
 static double pw = 0.1;
 
@@ -67,7 +67,7 @@ void plr_update(void) {
 
 	if (key_l) {
 		pth += pw;
-		if (pth > TAU) pth = 0;
+		if (pth >= TAU) pth = 0;
 	}
 	if (key_k) {
 		pth -= pw;
