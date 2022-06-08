@@ -9,16 +9,18 @@
 #include "raycast.h"
 
 #define FOV 60.0
-#define RAYS 120
+#define RAYS 90
 
+#include <stdio.h>
 void render_3d(double px, double py, double pth) {
 	double start_th = pth - (FOV / 2.0) * DEG;
 	for (int i = 0; i < RAYS; i++) {
 		double th = start_th + i * DEG * (FOV / RAYS);
-		if (th < 0) th = TAU + th;
+		if (th < 0) th += TAU;
 		if (th > TAU) th -= TAU;
 		ray_type rt;
-		double dist = cast_ray(px, py, th, &rt);
+		double dth = pth - th;
+		double dist = cast_ray(px, py, th, &rt) * cos(dth);
 
 		double height = MAP_SCALE * LENGTH / dist;
 		if (dist > LENGTH) dist = LENGTH;
