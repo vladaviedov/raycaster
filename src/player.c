@@ -5,7 +5,7 @@
 
 #include "util.h"
 #include "input.h"
-#include "3d/raycast.h"
+#include "3d/render.h"
 
 #define PLAYER_SIZE 16
 #define TRACER_WIDTH 5
@@ -13,7 +13,7 @@
 
 static double px;
 static double py;
-static double pth = 0.0;
+static double pth;
 static double pv = 5.0;
 static double pw = 0.1;
 
@@ -74,5 +74,5 @@ void plr_update(void) {
 		if (pth < 0) pth = TAU;
 	}
 
-	cast_ray(px, py, pth);
+	render_3d(px, py, pth);
 }

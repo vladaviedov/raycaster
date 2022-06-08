@@ -13,5 +13,6 @@ int map_del(void);
 int map_set_cell(int x, int y, mp_cell_val val);
 mp_cell_val map_get_cell(int x, int y);
 void map_draw(void);
+int map_2d_end(void);
 
 #endif // RC_MAP_MAP_H
