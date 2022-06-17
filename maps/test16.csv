@@ -1,0 +1,10 @@
+[meta]
+name,test16
+size,32,32
+[player]
+spawn,10,10
+[walls]
+hwall,1,1,30
+hwall,1,30,30
+vwall,1,1,30
+vwall,30,1,30

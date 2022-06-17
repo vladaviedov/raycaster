@@ -9,35 +9,30 @@
 #define RENDER_DISTANCE 16
 #define RAY_WIDTH 3
 
-double cast_horz(double x, double y, double th);
-double cast_vert(double x, double y, double th);
+ray_result cast_horz(double x, double y, double th);
+ray_result cast_vert(double x, double y, double th);
 void draw_ray(double xi, double yi, double xf, double yf);
 
-double cast_ray(double x, double y, double th, ray_type *type) {
-	double horz_dist = HUGE_VAL;
-	double vert_dist = HUGE_VAL;
-
-	if (th != 0 && th != PI) {
-		horz_dist = cast_horz(x, y, th);
-	}
+ray_result cast_ray(double x, double y, double th) {
+	ray_result horz_ray = cast_horz(x, y, th);
+	ray_result vert_ray = cast_vert(x, y, th);
 	
-	if (th != (PI / 2) && th != (3 * PI / 2)) {
-		vert_dist = cast_vert(x, y, th);
-	}
-
-	double dist = (horz_dist > vert_dist)
-		? vert_dist
-		: horz_dist;
-	*type = (horz_dist > vert_dist)
-		? VERT
-		: HORZ;
+	ray_result *ray = horz_ray.distance > vert_ray.distance
+		? &vert_ray
+		: &horz_ray;
 
 	if (render_2d)
-		draw_ray(x, y, x + dist * cos(th), y + dist * sin(th));
-	return dist;
+		draw_ray(x, y, x + ray->distance * cos(th), y + ray->distance * sin(th));
+
+	return *ray;
 }
 
-double cast_horz(double x, double y, double th) {
+ray_result cast_horz(double x, double y, double th) {
+	ray_result res = { HORZ, OOB, HUGE_VAL };
+	if (th == 0 || th == PI) {
+		return res;
+	}
+
 	int n_dist = 0;
 	int vdir = (th > PI) ? -1 : 1;
 	double cy = scale_down(y);
@@ -54,7 +49,7 @@ double cast_horz(double x, double y, double th) {
 	if (vdir != 1) cchecky = gy;
 	mp_cell_val hit_res = map_get_cell(gx, cchecky);
 	
-	while (hit_res == VOID && n_dist <= RENDER_DISTANCE) {
+	while (hit_res != WALL && n_dist <= RENDER_DISTANCE) {
 		n_dist++;
 		ry = scale_up(gy);
 		rx += scale_up(vdir) / tan(th);
@@ -65,11 +60,20 @@ double cast_horz(double x, double y, double th) {
 		hit_res = map_get_cell(gx, cchecky);
 	}
 	
-	double distance = sqrt(((rx - x) * (rx - x)) + ((ry - y) * (ry - y)));
-	return distance;
+	if (n_dist != RENDER_DISTANCE) {
+		res.hit_result = hit_res;
+		res.distance = sqrt(((rx - x) * (rx - x)) + ((ry - y) * (ry - y)));
+	}
+
+	return res;
 }
 
-double cast_vert(double x, double y, double th) {
+ray_result cast_vert(double x, double y, double th) {
+	ray_result res = { VERT, OOB, HUGE_VAL };
+	if (th == PI / 2 || th == 3 * PI / 2) {
+		return res;
+	}
+
 	int n_dist = 0;
 	int hdir = (th > (PI / 2) && th < (3 * PI / 2)) ? -1 : 1;
 	double cx = scale_down(x);
@@ -86,7 +90,7 @@ double cast_vert(double x, double y, double th) {
 	if (hdir != 1) ccheckx = gx;
 	mp_cell_val hit_res = map_get_cell(ccheckx, gy);
 	
-	while (hit_res == VOID && n_dist <= RENDER_DISTANCE) {
+	while (hit_res != WALL && n_dist < RENDER_DISTANCE) {
 		n_dist++;
 		rx = scale_up(gx);
 		ry += scale_up(hdir) * tan(th);
@@ -97,8 +101,12 @@ double cast_vert(double x, double y, double th) {
 		hit_res = map_get_cell(ccheckx, gy);
 	}
 
-	double distance = sqrt(((rx - x) * (rx - x)) + ((ry - y) * (ry - y)));
-	return distance;
+	if (n_dist != RENDER_DISTANCE) {
+		res.hit_result = hit_res;
+		res.distance = sqrt(((rx - x) * (rx - x)) + ((ry - y) * (ry - y)));
+	}
+
+	return res;
 }
 
 void draw_ray(double xi, double yi, double xf, double yf) {
