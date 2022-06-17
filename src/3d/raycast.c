@@ -32,7 +32,8 @@ double cast_ray(double x, double y, double th, ray_type *type) {
 		? VERT
 		: HORZ;
 
-	draw_ray(x, y, x + dist * cos(th), y + dist * sin(th));
+	if (render_2d)
+		draw_ray(x, y, x + dist * cos(th), y + dist * sin(th));
 	return dist;
 }
 

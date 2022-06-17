@@ -10,6 +10,7 @@ int key_a;
 int key_d;
 int key_k;
 int key_l;
+int key_q;
 double mouse_x;
 
 void chg_key(unsigned char key, int state);
@@ -51,6 +52,9 @@ void chg_key(unsigned char key, int state) {
 			break;
 		case 'l':
 			key_l = state;
+			break;
+		case 'q':
+			key_q = state;
 			break;
 	}
 }

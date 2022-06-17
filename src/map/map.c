@@ -117,5 +117,8 @@ int map_2d_end(void) {
 	if (map.data == NULL) {
 		return -1;
 	}
+	if (!render_2d) {
+		return 0;
+	}
 	return scale_up(map.xdim);
 }

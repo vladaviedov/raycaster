@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 
 #include "config.h"
+#include "util.h"
 #include "input.h"
 #include "player.h"
 #include "map/map.h"
@@ -38,10 +39,17 @@ void init(void) {
 }
 
 void loop(void) {
+	if (key_q) {
+		render_2d = !render_2d;
+		key_q = 0;
+	}
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
-	map_draw();
+	if (render_2d)
+		map_draw();
 	plr_update();
-	plr_draw();
+	if (render_2d)
+		plr_draw();
 	glutSwapBuffers();
 	glutPostRedisplay();
 }

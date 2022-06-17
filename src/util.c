@@ -6,6 +6,8 @@
 #include <stdarg.h>
 #include <errno.h>
 
+int render_2d = 1;
+
 void fatal(int code, char *format, ...) {
 	va_list vargs;
 	va_start(vargs, format);

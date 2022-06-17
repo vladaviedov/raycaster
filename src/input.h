@@ -7,6 +7,7 @@ extern int key_d;
 extern int key_a;
 extern int key_k;
 extern int key_l;
+extern int key_q;
 extern double mouse_x;
 
 void i_keydown(unsigned char key, int x, int y);
